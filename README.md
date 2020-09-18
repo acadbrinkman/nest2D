@@ -1,12 +1,25 @@
 # Introduction
 
+This is a fork of the original [Nest2D](https://github.com/markfink/nest2D) repository. This fork was made to improve the usability of the nest2D library within python by adding method calls to various properties of the defined structures from C++. Pull requests are welcome and will be merged when accepted.  
+
 Nest2D is a 2D bin packaging tool for python.
 
 Nest2D works with the C++ libnest2d backend for speed. For python C++ interoperability we use pybind11.
  
-The library is written in a way that it should be usable out of the box with a very simple interface. The backend is reasonably fast and robust, being built on top of boost geometry and the 
-[polyclipping](http://www.angusj.com/delphi/clipper.php) library.
+The library is written in a way that it should be usable out of the box with a very simple interface. The backend is reasonably fast and robust, being built on top of boost geometry and the [polyclipping](http://www.angusj.com/delphi/clipper.php) library.
 
+
+# Installing
+
+Due to git submodules existing within this project, the '--recursive' option must be used when cloning this repository. Furthermore, it requires cmake, boost, and polyclpping to be installed. A dockerfile and docker-compose.yml file are provided for development purposes on machine where it is not possible to install those libraries due to lack of permissions, a windows machine, etc.. 
+
+```bash
+$ sudo apt-get update 
+$ sudo apt-get install -y cmake libboost-all-dev libpolyclipping-dev
+$ git clone https://github.com/acadbrinkman/nest2D --recursive
+$ cd nest2D
+$ pip install .
+```
 
 # Example
 
