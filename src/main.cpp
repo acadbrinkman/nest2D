@@ -21,6 +21,8 @@ using PlacerConfig = NfpPlacer::Config;
 using Radians = libnest2d::Radians;
 using Alignment = PlacerConfig::Alignment;
 
+using Polygon = libnest2d::PolygonImpl;
+
 // Cannot use standard scale of 1000000, because Box only supports up to signed 32 bit integers
 const static double SCALE = 1000.0;
 
@@ -28,6 +30,8 @@ PYBIND11_MODULE(nest2D, m)
 {
     m.doc() = "2D irregular bin packaging and nesting for python";
 
+
+    
 
     py::class_<Radians>(m, "Radians", "Radian type")
         .def(py::init([](double rads){
@@ -38,6 +42,12 @@ PYBIND11_MODULE(nest2D, m)
              [](const Radians &rad) {
                  return boost::lexical_cast<std::string>(double(rad));
         });
+
+    py::class_<Polygon> clip_polygon(m, "clip_polygon");
+
+    clip_polygon.def(py::init<>())
+        .def_readwrite("contour", &Polygon::Contour)
+        .def_readwrite("holes", &Polygon::Holes);
 
 
     py::class_<PlacerConfig> placer_config(m, "placer_config");
@@ -123,7 +133,7 @@ PYBIND11_MODULE(nest2D, m)
         .def("vertexCount", [](const Item &i) { return i.vertexCount(); })
         .def("toString", [](const Item &i) { return i.toString(); })
         .def("boundingBox", [](const Item &i) { return i.boundingBox(); })
-        .def("transformedShape", [](const Item &i) { return libnest2d::sl::toString(i.transformedShape()); })
+        .def("transformedShape", [](const Item &i) { return i.transformedShape(); })
         .def("__repr__",
              [](const Item &i) {
                  std::string r("Item(area: ");

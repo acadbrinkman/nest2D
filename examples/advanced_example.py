@@ -262,7 +262,7 @@ pcg.starting_point = placer_config.Alignment.CENTER
 
 # nest the items
 pgrp = nest(product_items, nest_area, pcg)
-print(pgrp[0][0].transformedShape())
+print(pgrp[0][0].transformedShape().contour)
 # plot results
 sw = SVGWriter()
 sw.write_packgroup(pgrp, nest_area)
