@@ -225,7 +225,7 @@ work_area = 'POLYGON ((4550 3220, 4550 1170, -2380 1170, -2380 3220, 4550 3220))
 def _shapely_pol_to_nest2d_item(product_pol: Polygon):
     points = []
     holes = []
-    product_pol = product_pol.buffer(10)
+    product_pol = product_pol.buffer(10).convex_hull
 
     # First exterior
     polx, poly = product_pol.exterior.coords.xy
@@ -262,7 +262,7 @@ pcg.starting_point = placer_config.Alignment.CENTER
 
 # nest the items
 pgrp = nest(product_items, nest_area, pcg)
-
+print(pgrp[0][0].transformedShape())
 # plot results
 sw = SVGWriter()
 sw.write_packgroup(pgrp, nest_area)

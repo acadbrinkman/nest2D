@@ -123,6 +123,7 @@ PYBIND11_MODULE(nest2D, m)
         .def("vertexCount", [](const Item &i) { return i.vertexCount(); })
         .def("toString", [](const Item &i) { return i.toString(); })
         .def("boundingBox", [](const Item &i) { return i.boundingBox(); })
+        .def("transformedShape", [](const Item &i) { return libnest2d::sl::toString(i.transformedShape()); })
         .def("__repr__",
              [](const Item &i) {
                  std::string r("Item(area: ");
